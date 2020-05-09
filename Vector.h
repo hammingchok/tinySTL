@@ -22,8 +22,8 @@ namespace TinySTL{
 		typedef Alloc dataAllocator;
 
 	public:
-		typedef T									value_type;
-		typedef T*									iterator;
+		typedef T									value_type; // 数据类型
+		typedef T*									iterator; // 指针
 		//typedef const iterator					const_iterator;
 		typedef const T*							const_iterator;
 			
