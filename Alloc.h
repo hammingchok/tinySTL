@@ -5,16 +5,15 @@
 
 namespace TinySTL{
 
-	/*
-	**空间配置器，以字节数为单位分配
-	**内部使用
-	*/
+	// 空间配置器，以字节数为单位分配
+	// Allocator调用
 	class alloc{
 	private:
 		enum EAlign{ ALIGN = 8};//小型区块的上调边界
 		enum EMaxBytes{ MAXBYTES = 128};//小型区块的上限，超过的区块由malloc分配
 		enum ENFreeLists{ NFREELISTS = (EMaxBytes::MAXBYTES / EAlign::ALIGN)};//free-lists的个数
 		enum ENObjs{ NOBJS = 20};//每次增加的节点数
+
 	private:
 		//free-lists的节点构造
 		union obj{
@@ -23,10 +22,12 @@ namespace TinySTL{
 		};
 
 		static obj *free_list[ENFreeLists::NFREELISTS];
+
 	private:
 		static char *start_free;//内存池起始位置
 		static char *end_free;//内存池结束位置
 		static size_t heap_size;//
+
 	private:
 		//将bytes上调至8的倍数
 		static size_t ROUND_UP(size_t bytes){

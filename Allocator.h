@@ -33,6 +33,7 @@ namespace TinySTL{
 		static void destroy(T *first, T *last);
 	};
 
+	/* 分配内存 */
 	template<class T>
 	T *allocator<T>::allocate(){
 		return static_cast<T *>(alloc::allocate(sizeof(T)));
@@ -42,8 +43,10 @@ namespace TinySTL{
 		if (n == 0) return 0;
 		return static_cast<T *>(alloc::allocate(sizeof(T) * n));
 	}
+	/* 释放内存 */
 	template<class T>
 	void allocator<T>::deallocate(T *ptr){
+		// 强转成void*，释放资源
 		alloc::deallocate(static_cast<void *>(ptr), sizeof(T));
 	}
 	template<class T>
@@ -52,6 +55,7 @@ namespace TinySTL{
 		alloc::deallocate(static_cast<void *>(ptr), sizeof(T)* n);
 	}
 
+	/* 构造 */
 	template<class T>
 	void allocator<T>::construct(T *ptr){
 		new(ptr)T();
@@ -60,6 +64,7 @@ namespace TinySTL{
 	void allocator<T>::construct(T *ptr, const T& value){
 		new(ptr)T(value);
 	}
+	/* 析构 */
 	template<class T>
 	void allocator<T>::destroy(T *ptr){
 		ptr->~T();
